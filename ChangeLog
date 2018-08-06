@@ -1,3 +1,11 @@
+2016.03.02 00:00  Javier Gutierrez
+
+    * Improved: Speed by reducing allocations
+
+    * Fixed: Tag list
+
+    New release 0.03
+
 2014.08.27 00:00  Javier Gutierrez
 
     * Improved: Function printout() now uses va_list to avoid crash on certain

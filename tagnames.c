@@ -363,7 +363,6 @@ void tagid_init(void)
     strcpy(tap03le09_tagname_map[213], "TaxInformation");
     strcpy(tap03le09_tagname_map[214], "TaxInformationList");
     strcpy(tap03le09_tagname_map[215], "TaxRate");
-    strcpy(tap03le09_tagname_map[216], "Taxation");
     strcpy(tap03le09_tagname_map[216], "TaxRateDefinition");
     strcpy(tap03le09_tagname_map[217], "TaxType");
     strcpy(tap03le09_tagname_map[218], "TeleServiceCode");
@@ -795,7 +794,6 @@ void tagid_init(void)
     strcpy(tap03ge10_tagname_map[214], "TaxInformationList");
     strcpy(tap03ge10_tagname_map[215], "TaxRate");
     strcpy(tap03ge10_tagname_map[216], "Taxation");
-    strcpy(tap03ge10_tagname_map[216], "TaxRateDefinition");
     strcpy(tap03ge10_tagname_map[217], "TaxType");
     strcpy(tap03ge10_tagname_map[218], "TeleServiceCode");
     strcpy(tap03ge10_tagname_map[219], "ThirdPartyInformation");

@@ -64,6 +64,9 @@ char    rap01XX_tagname_map[MAXTAGS][MAXLEN];
 char    tap03le09_tagname_map[MAXTAGS][MAXLEN];
 char    tap03ge10_tagname_map[MAXTAGS][MAXLEN];
 
+uchar   *buffin_str = NULL, *buffin_str_tmp = NULL;
+long    buffin_str_len = 0;
+
 /* 3. Prototypes */
 
 static int      decode_asn      (FILE *file, long size, int is_indef, int is_root, int recno, int is_tap, int depth);
@@ -239,6 +242,11 @@ int main(int argc, char **argv)
 
     (void)fclose(file);
 
+    if (buffin_str) 
+    {
+        free(buffin_str);
+    }
+
     return(EXIT_SUCCESS);
 }
 
@@ -272,10 +280,9 @@ static int decode_asn(
 )
 {
     asn1item            a_item;
-    uchar*              buffin_str = NULL, *buffin_str_tmp = NULL;
     int                 is_root_loc = is_root, recno_loc = recno;
     long long           sum_up = 0;
-    long                buffin_str_len = 0, loc_pos = pos, i = 0;
+    long                loc_pos = pos, i = 0;
 
     memset(&a_item, 0x00, sizeof(a_item));
 
@@ -325,6 +332,9 @@ static int decode_asn(
         }
         else if ( a_item.tag_x[0] == 0x00 && a_item.size != 0 && ! is_indef)
         {
+
+            /* 1.3.2. Trash byte: Rewind one byte in order to try to recover and keep decoding */
+
             loc_pos++;
             pos = loc_pos;
             size--;
@@ -363,6 +373,7 @@ static int decode_asn(
                         a_item.tag, a_item.tag_h, a_item.size, a_item.size_h);
                 }
 
+                /* 1.4.2.1.2 Alloc and read element */
 
                 if (!buffin_str_len)
                 {
@@ -399,7 +410,7 @@ static int decode_asn(
 
 
                 {
-                    /* 1.4.2.1.2 Display */
+                    /* 1.4.2.1.3 Display */
 
                     if ((size_t)a_item.size <= sizeof(sum_up))
                     {
@@ -458,10 +469,10 @@ static int decode_asn(
 
                 }
 
-                /* 1.4.1. Arrange if indefinite Length */
+                /* 1.4.2.2.2 Decode the constructed element */
 
                 //if (!(!a_item.size && !a_item.size_x[0]) )
-                if (a_item.size_x[0])
+                if (a_item.size_x[0]) // If size == 0x80 then it's an indifinite constructed, if 0x00 might be an empty constructed.
                 {
 
 
@@ -482,7 +493,6 @@ static int decode_asn(
                                     depth +1)                           /* depth */
                          ) == -1 )
                     {
-                        if (buffin_str) free(buffin_str);
                         return -1;
                     }
                 }
@@ -507,11 +517,6 @@ static int decode_asn(
             recno++;
         }
 
-    }
-
-    if (buffin_str) 
-    {
-        free(buffin_str);
     }
 
     return 0;
@@ -694,6 +699,7 @@ static int decode_size(
             fprintf(stderr, "Found size bigger than 8 bytes at position: %ld\n", pos);
             return -1;
         }
+
 
     }
     else
