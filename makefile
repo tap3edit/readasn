@@ -1,6 +1,6 @@
 CC = gcc
 
-PKG_VER = 0.02
+PKG_VER = 0.04
 
 SRC  = readasn.c
 SRC += tagnames.c

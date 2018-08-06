@@ -1,3 +1,9 @@
+2018.08.06 00:00  Javier Gutierrez
+
+	* Report: Adaption of source code to be imported to GitHub
+
+	New release 0.04
+
 2016.03.02 00:00  Javier Gutierrez
 
     * Improved: Speed by reducing allocations

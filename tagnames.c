@@ -2,9 +2,7 @@
 |*
 |* tap3edit Tools (http://www.tap3edit.com)
 |*
-|* $Id: tagnames.c 46 2014-08-28 21:46:27Z mrjones $
-|*
-|* Copyright (c) 2005-2014, Javier Gutierrez <jgutierrez@tap3edit.com>
+|* Copyright (c) 2005-2018, Javier Gutierrez <https://github.com/tap3edit/readasn>
 |* 
 |* Permission to use, copy, modify, and/or distribute this software for any
 |* purpose with or without fee is hereby granted, provided that the above
@@ -20,7 +18,7 @@
 |*
 |* This file contains information belonging to the GSM Assotiation:
 |*
-|*   Copyright © 2007-2014 GSM Association
+|*   Copyright © 2007-2018 GSM Association
 |*
 |* Module: tagnames.c
 |*
